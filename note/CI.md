@@ -9,3 +9,20 @@ $P^{-1} = w P_1^{-1} + (1 - w)P^{-1}_{2}$
 $M = P * (w P^{-1}_1M_1 + (1-w)P^{-1}_2M_2)$
 
 where $w$  is computed to minimize a selected norm, e.g.., logdet or trace. 
+
+
+
+Consider here the fusion of two estimates using either the Kalman filter or the data fusion technique known as Covariance Intersection (CI), under the following circumstances
+
+1. The two estimates are independent In this case the Kalman filter produces an optimal fused estimate while CI produces a consistent, though suboptimal, estimate
+2. The two estimates are completely correlated In this case CI produces an optimal fused estimate while Kalman produces an inconsistent estimate.
+3. The two estimates are partially correlated In this case CI produces a consistent, though suboptimal,estimate while the Kalman filter produces an inconsistent estimate
+
+
+
+# Batch Covariance Intersection(BCI)
+
+
+
+
+
