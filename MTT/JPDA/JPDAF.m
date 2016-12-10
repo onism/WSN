@@ -1,6 +1,8 @@
 clear
 close all
 clc
+% ref: Set JPDA Filter for Multitarget Tracking
+% ref The probabilistic data association filter 2009
 steps  = 30; % steps
 T = 1;
 init_position=[150 30 10 80;
@@ -56,14 +58,34 @@ for i = 1 : N
    end
 end
 
+% draw track
+figure
+hold on
+for i = 1 : N
+    plot(traj(i,1,:),traj(i,2,:));
+end
+xlabel('x(m)'),ylabel('y(m)');
+legend('Track 1','Track 2');
+
 % run
 % init kalman filter for targets
-x_predict = zeros(x_dim,N);
-P_predict = zeros(x_dim,x_dim,N);
-for i = 1 : N
+x_update = zeros(x_dim,N);
+P_update(:,:,1) = eye(x_dim,x_dim);
+P_update(:,:,2) = eye(x_dim,x_dim);
 
-end
 
 for t = 1 : steps
+    % i-th track
+    for i = 1 : N
+        % kalman filter predict
+        x_predict(:,i)  = F * x_update(:,i);
+        P_predict(:,:,i) = F * P_update(:,:,i) * F' + G * Q * G';
+        Z_predict(:,i) = H * x_predict(:,i);
+        S(:,:,i) = H * P_predict(:,:,i)*H' + R;
+        % compute the b
+        b = 2 * pi *
+
+    end
+
 
 end
