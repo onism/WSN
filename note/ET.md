@@ -74,12 +74,69 @@ Event based sensors have three advantages over normal synchroized image sensors.
 
 The sensor can not see still objects. 
 
+# Event-based Sampling
+
+ref: Event-Based Control and signal processing
+
+https://books.google.com/books?hl=zh-CN&lr=&id=b_QYCwAAQBAJ&oi=fnd&pg=PA261&dq=event-based+CPHD+filter+event-triggered&ots=VjpYIqbKpG&sig=tleIsZORhFbs_R6LROe4PAcQ28k#v=onepage&q&f=false
+
+page 267
+
+Event-Based sampling is a-periodically sampling strategy where events are not triggered periodically in time but at instants of predefined events.  Three examples are "Send-On-Delta"
+
+,"Predictive Sampling" and "Matched Sampling"
+
+1. Send-On-Delta(SOD)
+   $$
+   t_e = inf \left\{t > t_{e-1}| ||y(t) - y(t_{e-1})||  > \Delta(t)\right\}
+   $$
+
+2. Predictive Sampling
+   $$
+   t_e = inf  \left\{ t>t_{e-1} | ||y(t) - \hat{y}(t)||  > \Delta(t) \right\}
+   $$
+
+3. Matched Sampling
+   $$
+   t_e = inf \left\{ t > t_{e-1}| ||D_{kl}(p_1(x(t)),p_2(x(t)))|| > \Delta(t) \right\}
+   $$
+
+
+Matched Sampling uses the KL divergence for triggering new events. This divergence, denoted as $D_{kl}(p_1(x),p_2(x)$.  $p_1(x)$ is considered to be the updated PDF of x and $p_2(x)$ is a prediction of $p_1(x)$. In line with this reasoning let $p_2(x)$ denote the prediction of $x(t)$ base on the result at $t_{e-1}$, while $p_1(x(t))$ is the update of $p_2(x)$ with the sensor value $y(t)$. 
+
+
+
+## Stochastic Representations
+
+The sEBSE finds an single Gaussian approximation.
+
+**Step 1**  Compute the prediction from the process model and the estimation result at $t_{k-1}$. The kalman filter equation can be used to find the predicted PDF, for some sampling time $\tau_k = t_{k} - t_{k-1}$, that is,
+$$
+p(x(t_k) | \mathcal{Y}_{0:k-1}) = \mathcal{G}(x(t_k),\hat{x}(t_k^-),P(t_k^-))
+$$
+where
+$$
+\hat{x}(t_k^-) = F \hat{x}(t_{k-1})
+$$
+
+$$
+P(t_k^-)) = F P(t_{k-1})F+Q
+$$
+
+**Step2** Formulate the likelihood $p(y(t_k)|x(t_k))$ as a sum of N Gaussian and employ a sum of Gaussian approach to solve $p(x(t_k)|\mathcal{Y_{0:k}})$
+
 #  Cooperative Target
 
 ref:Event-triggered cooperative target tracking in
 wireless sensor networks
 
+# Event Based State Estimation With Time Synchronous Updates
 
+ref Event Based State Estimation With Time Synchronous Updates(2012 IEEE TRANSACTIONS ON AUTOMATIC CONTROL)
 
+Two event sampling are "Send-onDelta" and "Integral Sampling". 
 
+The goal of this paper is to design a stochastic state-estimator that is suitable for any type of event sampling strategy, enjoys an asymptotic bound on its error-covriance matrix and has a reasonable compuational complexity. 
+
+The challenge in event based state estimation is an unknown time-horizon until the next event occurs, if it even occurs at all. Solutions with asynchronous estimators, perform a prediction of $x$ at the synchronous time instants as no measurement is received. It was shown that this leads to a diverging behavior of $P(t)$. 
 
