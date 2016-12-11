@@ -102,6 +102,7 @@ Event-Based sampling is a-periodically sampling strategy where events are not tr
    $$
 
 
+
 Matched Sampling uses the KL divergence for triggering new events. This divergence, denoted as $D_{kl}(p_1(x),p_2(x)$.  $p_1(x)$ is considered to be the updated PDF of x and $p_2(x)$ is a prediction of $p_1(x)$. In line with this reasoning let $p_2(x)$ denote the prediction of $x(t)$ base on the result at $t_{e-1}$, while $p_1(x(t))$ is the update of $p_2(x)$ with the sensor value $y(t)$. 
 
 
@@ -140,3 +141,43 @@ The goal of this paper is to design a stochastic state-estimator that is suitabl
 
 The challenge in event based state estimation is an unknown time-horizon until the next event occurs, if it even occurs at all. Solutions with asynchronous estimators, perform a prediction of $x$ at the synchronous time instants as no measurement is received. It was shown that this leads to a diverging behavior of $P(t)$. 
 
+
+
+# An event-triggered approach to state estimation with multiple pointand set-valued measurements
+
+Each channel of the sensors has its own event-triggering condition, closed-form representations are derived for the optimal estimate and the corresponding error covraince matrix. 
+
+
+
+## Scenario
+
+The process is measured by a network of sensors and that each sensor choose to provide its latest measurement update according to its own event-triggering condition. 
+
+**point-valued** measurement: For the sensors whoise sensor outputs are known to the estimator
+
+**set-valued** measurement: For the sensors that the event-triggering conditions are not satisfied, some information containded in the event-trigger sets is known to the estimator as well.
+
+Define the function
+$$
+h(X)=AXA^T + Q \\
+g(x,\theta) = X - \theta H^T[HXH^T+R]^{-1}HX
+$$
+
+### optimal fusion
+
+**Theorem** (1)The optimal prediction $x_k^0$ of the state $x_k$ and the corresponding covariance $P_k^0$ are given by
+$$
+x_k^0 = Ax_{k-1}^M\\
+P_k^0 = h(P_{k-1}^M)
+$$
+(2) for $i \in \mathcal{N}_{0:M-1}$, the fusion of information from the $(i+1)$th  sensor leads to the following recursive state estimation equations
+
+if $\gamma_k^{i+1} == 1$
+$$
+x_k^{i+1}=x_k^{i}+L_{k}^{i+1}(z_k^{i+1} - z_k^{i+1|i})\\
+P_k^{i+1}=g(P_k^i)
+$$
+if $\gamma_k^{i+1} == 0$
+$$
+x_{k}^{i+1} = x_k^i
+$$
