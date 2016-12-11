@@ -35,7 +35,7 @@ icf = ICF(Nc,p,T,eta,xa,P); %Information-Weighted Consensus Filter
 gkcf = GKCF(Nc,p,T,eta,xa,P); %Generalized Kalman Consensus Filter
 kcf = KCF(Nc,p,T,eta,xa,P); %Kalman Consensus Filter
 ckf = CKF(Nc,p,T,eta,xa,P); %Centralized Kalman Filter
-
+kfci = KFCI(Nc,p,T,eta,xa,P);
 for t=1:T %timestep
     
     %% get measurements
@@ -58,18 +58,22 @@ for t=1:T %timestep
     kcf.consensus(Nc,p,K,E,t);
     kcf.predict(Nc,t,Phi,Q);
     
+    %% ikcf
+    kfci.estimate(Nc,p,t,eps,E,H,R,z,zCount);
+    kfci.consensus(Nc,p,K,E,t);
+    kfci.predict(Nc,t,Phi,Q);
     %%
     ckf.estimate(Nc,p,t,Phi,Q,z,zCount,H,Rinv);
     
     %% Plot Tracking
     figure(h_fig_track);
-    plotTracks(xa,icf,gkcf,kcf,ckf,z,zCount,Nc,t,T);
+    plotTracks(xa,icf,gkcf,kcf,ckf,z,zCount,Nc,t,T,kfci);
     %plotFOV(FOV);
     pause(.001);
 end %t
 
 [ME_icf,ME_gkcf,ME_kcf,ME_ckf,SDE_icf,SDE_gkcf,SDE_kcf,SDE_ckf,e_icf,e_gkcf,e_kcf,e_ckf]...
-    = computeStats(xa,icf,gkcf,kcf,ckf);
+    = computeStats(xa,kfci,gkcf,kcf,ckf);
 
 % save plot
 box on;

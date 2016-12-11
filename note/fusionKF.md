@@ -176,3 +176,59 @@ $$
 \bar{\Sigma}^{-1} = \sum_{i=1}^N\pi_i(\Sigma_i)^{-1}\\
 \bar{\Sigma}^{-1}\bar{\mu}=\sum_{i=1}^N \pi_i (\Sigma_i)^{-1}\mu_i
 $$
+let $\pi_i = \frac{k_i}{N}$, and define
+$$
+\Omega_i = \Sigma_i^{-1}\\
+y_i =\Sigma_i^{-1}\mu_i
+$$
+then the wKLA can be rewritten as
+$$
+\bar{\Omega} = \frac{1}{N}\sum_{i=1}^Nk_i\Omega_i\\
+\bar{y}=\frac{1}{N}\sum_{i=1}^Nk_iy_i\\
+\sum_{i=1}^N k_i = N
+$$
+Let a belief set $B = {b_k^1,…,b_k^N}$ represent the beliefs of nodes
+$$
+b_k^i = \frac{1}{||P_{k|k}^i||}
+$$
+Assume the initial weight is uniform, namely $k_i=1$, then define the unit belief as 
+$$
+c_k^i =\frac{b_k^i}{k_i}
+$$
+Next we will adjust the weight $k_i$ according to the degree of belief.  To make the unit belief among the nodes to be identical in the long run, in the following we set $c_k^i$ as the consensus variable.
+$$
+c_k^i = \sum (c_k^j - c_k^i)
+$$
+Hence, as long as the consensus is achieved among the nodes, the weight associated with node $i$ is given by 
+$$
+k_i = \frac{b_k^i}{c_k^i}
+$$
+**Algorithm**3 wKCF at $C_i$ at time step $t$
+
+------
+
+1) Given measurement $z_i$
+
+2) Predict
+
+predict a priori state estimate: $x_{k|k-1}^i=Fx_{k|k-1}^i$
+
+predict a priori estimate covariance $P_{k|k-1}^i$
+
+3)  Update with the Kalman filter
+
+4) Update weight values according above
+
+5) Compute weight KLA
+
+initialize $c_{\Omega}^i(0)=k_i\Omega_i=k_i (P_{k|k}^i)^{-1}$
+
+intialize $c_{y}^i(0)=k_iy_i=k_i (P_{k|k}^i)^{-1}x_{k|k}^i$
+
+Update each scalar $c_{ym}^i$ in $c_y^i$ and $c_{\Omega_{mn}}^i$ in matrix $c_{\Omega}^i$ with the consensus algorithm
+
+6) Update consensus estimate
+
+------
+
+### 
