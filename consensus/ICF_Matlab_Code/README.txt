@@ -34,3 +34,4 @@ R. Olfati-Saber. Kalman-consensus ?lter: Optimality, stability, and performance.
 %%% I use this matlab code, but I will add some other algorithm to compare
 
 %% 2016/12/11 add the CI fusion with kalman filter, it perform well than the KCF but worse than weight kalman filter and GKCF
+%% 2016/12/12 add the KLA and wKLA fusion with the kalman filter, kla perform well but the wkla perform worse, I will fixed it later
