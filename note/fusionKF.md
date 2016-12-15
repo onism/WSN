@@ -237,5 +237,7 @@ Update each scalar $c_{ym}^i$ in $c_y^i$ and $c_{\Omega_{mn}}^i$ in matrix $c_{\
 
 ## Information weighted Consensus filter
 
+# Multi-Target Information Consensus filter
+
 
 
