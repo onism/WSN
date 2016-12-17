@@ -35,7 +35,7 @@ icf = ICF(Nc,p,T,eta,xa,P); %Information-Weighted Consensus Filter
 gkcf = GKCF(Nc,p,T,eta,xa,P); %Generalized Kalman Consensus Filter
 kcf = KCF(Nc,p,T,eta,xa,P); %Kalman Consensus Filter
 ckf = CKF(Nc,p,T,eta,xa,P); %Centralized Kalman Filter
-kfci = KFCI(Nc,p,T,eta,xa,P);
+kfci = KFSCI(Nc,p,T,eta,xa,P);
 kfkla = KFKLA(Nc,p,T,eta,xa,P);
 kfwkla = KFwKLA(Nc,p,T,eta,xa,P);
 for t=1:T %timestep
@@ -68,9 +68,9 @@ for t=1:T %timestep
     kfkla.estimate(Nc,p,t,eps,E,H,R,z,zCount);
     kfkla.consensus(Nc,p,K,E,t);
     kfkla.predict(Nc,t,Phi,Q);
-    kfwkla.estimate(Nc,p,t,eps,E,H,R,z,zCount);
-    kfwkla.consensus(Nc,p,K,E,t);
-    kfwkla.predict(Nc,t,Phi,Q);
+%     kfwkla.estimate(Nc,p,t,eps,E,H,R,z,zCount);
+%     kfwkla.consensus(Nc,p,K,E,t);
+%     kfwkla.predict(Nc,t,Phi,Q);
     %%
     ckf.estimate(Nc,p,t,Phi,Q,z,zCount,H,Rinv);
 
