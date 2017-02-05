@@ -102,7 +102,7 @@ classdef KFSCI < handle
                 end
                 m_curr = P_curr * m_curr;
                 nSamples = 100;
-                mean_zero = zeros(size(m_curr,1),1);
+                mean_zero = m_curr;
                 L = chol(P_curr)';
                 X = repmat(mean_zero,1,nSamples) + L*randn(size(mean_zero,1),size(mean_zero,2)*nSamples);
                 r = zeros(nSamples,1);

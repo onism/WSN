@@ -103,6 +103,7 @@ Event-Based sampling is a-periodically sampling strategy where events are not tr
 
 
 
+
 Matched Sampling uses the KL divergence for triggering new events. This divergence, denoted as $D_{kl}(p_1(x),p_2(x)$.  $p_1(x)$ is considered to be the updated PDF of x and $p_2(x)$ is a prediction of $p_1(x)$. In line with this reasoning let $p_2(x)$ denote the prediction of $x(t)$ base on the result at $t_{e-1}$, while $p_1(x(t))$ is the update of $p_2(x)$ with the sensor value $y(t)$. 
 
 
@@ -181,3 +182,7 @@ if $\gamma_k^{i+1} == 0$
 $$
 x_{k}^{i+1} = x_k^i
 $$
+
+# Event-triggered Kalman consensus filter over sensor networks
+
+To reduce the amount of data of data transfer in sensor networks, the authors propose a KCF with an event-triggered communication protocol. The triggering decision is based on the send-on-delta transimission mechanism: each sensor transmits its local estimates to its neighbots only if the difference between the most recent transmitted  estimate and current estimate exceeds a tolerable threshold. 
